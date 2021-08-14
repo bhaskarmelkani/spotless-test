@@ -1,3 +1,7 @@
+plugins {
+    id "com.diffplug.spotless" version "5.12.4"
+}
+
 apply plugin: 'java'
 apply plugin: 'maven'
 
@@ -47,4 +51,24 @@ install {
 wrapper {
     gradleVersion = "6.1.1"
     distributionType = Wrapper.DistributionType.ALL
+}
+
+spotless {
+    // optional: limit format enforcement to just the files changed by this feature branch
+    ratchetFrom 'origin/master'
+    format 'misc', {
+        // define the files to apply `misc` to
+        target '*.gradle', '.gitignore'
+        // define the steps to apply to those files
+
+        trimTrailingWhitespace()
+        indentWithSpaces(2)
+        endWithNewline()
+    }
+    java {
+        target 'src/**/*.java'
+        // apply google-java-format
+        removeUnusedImports()
+        googleJavaFormat('1.9')
+    }
 }
