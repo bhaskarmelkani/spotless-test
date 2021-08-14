@@ -7,3 +7,5 @@ build/
 *.aar
 *.war
 !gradle-wrapper.jar
+
+useless/
